@@ -16,12 +16,8 @@ class WeatherViewModel @Inject constructor(
     private val repository: WeatherRepository
 ) : ViewModel() {
 
-    init {
-        refreshWeather("Lviv")
-    }
 
-
-    private fun refreshWeather(cityName: String) {
+    fun refreshWeather(cityName: String) {
         viewModelScope.launch {
             try {
                 repository.refreshWeather(cityName)

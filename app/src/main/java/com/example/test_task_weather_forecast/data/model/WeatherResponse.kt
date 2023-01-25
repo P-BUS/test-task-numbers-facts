@@ -7,10 +7,12 @@ data class WeatherResponse(
     val city: City,
     val cnt: Int,
     val cod: String,
-    val list: List<>,
+    val list: List<WeatherForecast>,
     val message: Int
 )
 
+
+@JsonClass(generateAdapter = true)
 data class City(
     val coord: Coord,
     val country: String,
@@ -22,7 +24,8 @@ data class City(
     val timezone: Int
 )
 
-data class(
+@JsonClass(generateAdapter = true)
+data class WeatherForecast(
     val clouds: Clouds,
     val dt: Int,
     val dt_txt: String,
@@ -34,15 +37,18 @@ data class(
     val wind: Wind
 )
 
+@JsonClass(generateAdapter = true)
 data class Coord(
     val lat: Double,
     val lon: Double
 )
 
+@JsonClass(generateAdapter = true)
 data class Clouds(
     val all: Int
 )
 
+@JsonClass(generateAdapter = true)
 data class Main(
     val feels_like: Double,
     val grnd_level: Int,
@@ -55,10 +61,12 @@ data class Main(
     val temp_min: Double
 )
 
+@JsonClass(generateAdapter = true)
 data class Sys(
     val pod: String
 )
 
+@JsonClass(generateAdapter = true)
 data class Weather(
     val description: String,
     val icon: String,
@@ -66,6 +74,7 @@ data class Weather(
     val main: String
 )
 
+@JsonClass(generateAdapter = true)
 data class Wind(
     val deg: Int,
     val gust: Double,
