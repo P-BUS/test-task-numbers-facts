@@ -1,5 +1,7 @@
-package com.example.test_task_weather_forecast.network
+package com.example.test_task_weather_forecast.data.network
 
+import com.example.test_task_weather_forecast.data.model.WeatherResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -18,5 +20,5 @@ interface WeatherApiService {
         @Query("cnt") numberOfTimestamps: Int = 5,
         @Query("appid") apiKey: String = API_KEY,
         @Query("units") measurementStandard: String = "metric"
-    )
+    ): Response<WeatherResponse>
 }

@@ -3,7 +3,7 @@ package com.example.test_task_weather_forecast.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.test_task_weather_forecast.repository.WeatherRepository
+import com.example.test_task_weather_forecast.data.repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -16,7 +16,9 @@ class WeatherViewModel @Inject constructor(
     private val repository: WeatherRepository
 ) : ViewModel() {
 
-    inti
+    init {
+        refreshWeather("Lviv")
+    }
 
 
     private fun refreshWeather(cityName: String) {

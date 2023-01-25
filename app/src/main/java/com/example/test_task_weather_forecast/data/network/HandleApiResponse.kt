@@ -1,4 +1,4 @@
-package com.example.test_task_weather_forecast.network
+package com.example.test_task_weather_forecast.data.network
 
 import retrofit2.HttpException
 import retrofit2.Response
