@@ -7,7 +7,7 @@ data class WeatherResponse(
     val city: City,
     val cnt: Int,
     val cod: String,
-    val list: List<Any>,
+    val list: List<>,
     val message: Int
 )
 
@@ -22,13 +22,12 @@ data class City(
     val timezone: Int
 )
 
-data class Any(
+data class(
     val clouds: Clouds,
     val dt: Int,
     val dt_txt: String,
     val main: Main,
-    val pop: Double,
-    val rain: Rain,
+    val pop: Int,
     val sys: Sys,
     val visibility: Int,
     val weather: List<Weather>,
@@ -56,10 +55,6 @@ data class Main(
     val temp_min: Double
 )
 
-data class Rain(
-    val `3h`: Double
-)
-
 data class Sys(
     val pod: String
 )
@@ -76,5 +71,3 @@ data class Wind(
     val gust: Double,
     val speed: Double
 )
-
-
