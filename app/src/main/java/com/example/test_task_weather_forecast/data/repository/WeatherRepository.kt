@@ -15,9 +15,9 @@ class WeatherRepository @Inject constructor(
 ) {
     suspend fun refreshWeather(cityName: String) {
         withContext(Dispatchers.IO) {
-            val weatherList: List<WeatherResponse> = listOf()
+            var weatherList: WeatherResponse
             when (val responce = network.getWeatherForecast(cityName)) {
-                is ApiResult.Success -> responce.data
+                is ApiResult.Success -> weatherList = responce.data
                 is ApiResult.Error -> Log.e(TAG, "${responce.code} ${responce.message}")
                 is ApiResult.Exception -> Log.e(TAG, "${responce.e.cause} ${responce.e.message}")
             }
