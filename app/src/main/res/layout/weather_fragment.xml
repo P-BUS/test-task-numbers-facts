@@ -27,14 +27,14 @@
         android:layout_marginEnd="@dimen/margin_large"
         android:hint="@string/hint_city"
         app:endIconMode="clear_text"
-        app:startIconDrawable="@drawable/ic_search_24"
         app:errorContentDescription=""
         app:errorIconDrawable="@drawable/ic_error_outline_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_city">
+        app:layout_constraintTop_toBottomOf="@id/tv_city"
+        app:startIconDrawable="@drawable/ic_search_24"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/it_input_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -102,11 +102,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="@dimen/margin_medium"
-        tools:listitem="@layout/item_view"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/item_view" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
