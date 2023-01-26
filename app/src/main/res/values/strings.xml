@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">test-task-weather-forecast</string>
+    <string name="city">Lviv</string>
+    <string name="hint_city">Type your city here</string>
 </resources>
