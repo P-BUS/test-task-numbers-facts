@@ -10,49 +10,49 @@
         android:id="@+id/tv_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="@dimen/margin_xlarge"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
         android:textSize="@dimen/large_text"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/city"/>
+        tools:text="@string/city" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/il_input_city"
         android:layout_width="match_parent"
         android:layout_height="32dp"
-        android:layout_marginTop="@dimen/margin_large"
         android:layout_marginStart="@dimen/margin_large"
-        app:errorContentDescription=""
-        app:endIconDrawable="@drawable/ic_search_24"
-        app:errorIconDrawable="@drawable/ic_error_outline_24"
-        android:hint="@string/hint_city"
+        android:layout_marginTop="@dimen/margin_large"
         android:layout_marginEnd="@dimen/margin_large"
+        android:hint="@string/hint_city"
+        app:endIconDrawable="@drawable/ic_search_24"
+        app:errorContentDescription=""
+        app:errorIconDrawable="@drawable/ic_error_outline_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_city" >
+        app:layout_constraintTop_toBottomOf="@id/tv_city">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/it_input_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:maxLines="1"/>
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-   <!-- <ImageView
-        android:id="@+id/iv_search_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/il_input_city"
-        android:focusable="false"
-        android:clickable="false"
-        app:layout_constraintTop_toTopOf="@id/il_input_city"
-        android:layout_marginEnd="@dimen/margin_small"
-        app:layout_constraintBottom_toBottomOf="@id/il_input_city"
-        app:srcCompat="@drawable/ic_search_24"
-        />-->
+    <!-- <ImageView
+         android:id="@+id/iv_search_icon"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         app:layout_constraintEnd_toEndOf="@id/il_input_city"
+         android:focusable="false"
+         android:clickable="false"
+         app:layout_constraintTop_toTopOf="@id/il_input_city"
+         android:layout_marginEnd="@dimen/margin_small"
+         app:layout_constraintBottom_toBottomOf="@id/il_input_city"
+         app:srcCompat="@drawable/ic_search_24"
+         />-->
 
     <ImageView
         android:id="@+id/iv_weather_icon"
@@ -65,22 +65,46 @@
         app:srcCompat="@drawable/ic_search_24" />
 
     <TextView
+        android:id="@+id/tv_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/rv_weather_scroll"/>
+        android:layout_margin="@dimen/margin_medium"
+        android:textSize="@dimen/large_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_weather_icon"
+        tools:text="+10 *C" />
+
+    <TextView
+        android:id="@+id/tv_weather_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:textSize="@dimen/medium_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_temperature"
+        tools:text="Sunny" />
+
+    <TextView
+        android:id="@+id/tv_forecast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:text="@string/text_forecast"
+        app:layout_constraintBottom_toTopOf="@id/rv_weather_scroll"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_weather_scroll"
         android:layout_width="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_medium"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
