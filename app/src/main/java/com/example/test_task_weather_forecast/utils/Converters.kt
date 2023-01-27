@@ -4,6 +4,8 @@ import androidx.room.TypeConverter
 import com.example.test_task_weather_forecast.data.model.Clouds
 import com.example.test_task_weather_forecast.data.model.Main
 import com.example.test_task_weather_forecast.data.model.Sys
+import com.example.test_task_weather_forecast.data.model.Weather
+import com.example.test_task_weather_forecast.data.model.Wind
 import com.google.gson.Gson
 
 
@@ -31,19 +33,19 @@ class ConverterSys {
     fun jsonToSys(value: String) = Gson().fromJson(value, Sys::class.java)
 }
 
-class ConverterSys {
+class ConverterWeather {
     @TypeConverter
-    fun sysToJson(value: Sys?) = Gson().toJson(value)
+    fun weatherListToJson(value: List<Weather>?) = Gson().toJson(value)
 
     @TypeConverter
-    fun jsonToSys(value: String) = Gson().fromJson(value, Sys::class.java)
+    fun jsonToWeatherList(value: String) = Gson().fromJson(value, Array<Weather>::class.java)
 }
 
 class ConverterWind {
     @TypeConverter
-    fun sysToJson(value: Sys?) = Gson().toJson(value)
+    fun windToJson(value: Wind?) = Gson().toJson(value)
 
     @TypeConverter
-    fun jsonToSys(value: String) = Gson().fromJson(value, Sys::class.java)
+    fun jsonToWind(value: String) = Gson().fromJson(value, Wind::class.java)
 }
 
