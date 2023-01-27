@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -13,9 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test_task_weather_forecast.data.model.WeatherForecast
 import com.example.test_task_weather_forecast.databinding.WeatherFragmentBinding
+import com.example.test_task_weather_forecast.ui.adapters.ForecastListAdapter
 import com.example.test_task_weather_forecast.ui.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -34,9 +33,11 @@ class WeatherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val adapter =
         recyclerView = binding.rvWeatherScroll
+
+        val adapter = ForecastListAdapter
+        recyclerView.adapter = adapter
+
 
 
         sharedViewModel.refreshWeather("Lviv")
