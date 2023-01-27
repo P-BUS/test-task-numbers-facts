@@ -23,6 +23,7 @@ class WeatherRepository @Inject constructor(
                 is ApiResult.Error -> Log.e(TAG, "${responce.code} ${responce.message}")
                 is ApiResult.Exception -> Log.e(TAG, "${responce.e.cause} ${responce.e.message}")
             }
+            database.insertAll(weatherList)
         }
     }
 
