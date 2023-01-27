@@ -6,7 +6,10 @@ import com.example.test_task_weather_forecast.data.model.WeatherForecast
 import com.example.test_task_weather_forecast.data.network.ApiResult
 import com.example.test_task_weather_forecast.data.network.WetherRemoteDataSource
 import com.example.test_task_weather_forecast.utils.asDatabaseModel
+import com.example.test_task_weather_forecast.utils.asDomainModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -16,6 +19,11 @@ class WeatherRepository @Inject constructor(
     private val network: WetherRemoteDataSource,
     private val database: WeatherLocalDataSource
 ) {
+
+    val weatherForecast: Flow<List<WeatherForecast>> =
+        database.getAllWeather()
+            .map {it.asDomainModel() }
+
     suspend fun refreshWeather(cityName: String) {
         withContext(Dispatchers.IO) {
             var weatherList: List<WeatherForecast> = listOf()

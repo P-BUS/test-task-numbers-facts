@@ -7,14 +7,22 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
+import com.example.test_task_weather_forecast.data.model.WeatherForecast
 import com.example.test_task_weather_forecast.databinding.WeatherFragmentBinding
 import com.example.test_task_weather_forecast.ui.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class WeatherFragment : Fragment() {
     private val sharedViewModel: WeatherViewModel by activityViewModels()
     private lateinit var binding: WeatherFragmentBinding
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,16 +35,27 @@ class WeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val adapter =
+        recyclerView = binding.rvWeatherScroll
 
+
+        sharedViewModel.refreshWeather("Lviv")
 
         // Get input City
         val typedCity = binding.ilInputCity.editText?.text.toString()
 
-        sharedViewModel.refreshWeather("Lviv")
+        lifecycleScope.launch {
+            sharedViewModel.weatherForecast
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect {
+                    bindForecast(it)
+                    adapter.submitList(it)
+                }
+        }
+    }
 
-
-
-
+    private fun bindForecast(forecast: List<WeatherForecast>) {
+        binding.tvCity = forecast[0].
     }
 
 }
