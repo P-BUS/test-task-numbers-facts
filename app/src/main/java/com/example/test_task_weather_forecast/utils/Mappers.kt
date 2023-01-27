@@ -7,6 +7,7 @@ import com.example.test_task_weather_forecast.data.model.WeatherForecast
 fun List<WeatherEntity>.asDomainModel(): List<WeatherForecast> {
     return map {
         WeatherForecast(
+            key = it.key,
             clouds = it.clouds,
             dt = it.dt,
             dtTxt = it.dtTxt,
@@ -23,6 +24,7 @@ fun List<WeatherEntity>.asDomainModel(): List<WeatherForecast> {
 fun List<WeatherForecast>.asDatabaseModel(): List<WeatherEntity> {
     return map {
         WeatherEntity(
+            key = it.key,
             clouds = it.clouds,
             dt = it.dt,
             dtTxt = it.dtTxt,

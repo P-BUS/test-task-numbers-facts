@@ -27,6 +27,7 @@ data class City(
 
 @JsonClass(generateAdapter = true)
 data class WeatherForecast(
+    val key: Int = 0,
     val clouds: Clouds,
     val dt: Int,
     @Json(name = "dt_txt")
