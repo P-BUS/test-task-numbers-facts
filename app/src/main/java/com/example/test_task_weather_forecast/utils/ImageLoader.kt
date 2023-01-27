@@ -7,7 +7,7 @@ import com.example.test_task_weather_forecast.R
 
 object ImageLoader {
     fun loadImage(imageView: ImageView, imageCode: String) {
-        val imageUrl = "http://openweathermap.org/img/wn/$imageCode@2x.png"
+        val imageUrl = "http://openweathermap.org/img/wn/$imageCode@4x.png"
         imageUrl.let {
             val imageUri = imageUrl.toUri().buildUpon().scheme("https").build()
             imageView.load(imageUri) {

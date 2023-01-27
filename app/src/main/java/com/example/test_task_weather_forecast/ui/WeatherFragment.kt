@@ -1,6 +1,7 @@
 package com.example.test_task_weather_forecast.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,10 @@ import com.example.test_task_weather_forecast.ui.adapters.ForecastListAdapter
 import com.example.test_task_weather_forecast.ui.viewmodel.WeatherViewModel
 import com.example.test_task_weather_forecast.utils.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+
+const val TAG = "WeatherFragment"
 
 @AndroidEntryPoint
 class WeatherFragment : Fragment() {
@@ -40,7 +44,6 @@ class WeatherFragment : Fragment() {
         recyclerView.adapter = adapter
 
 
-
         //sharedViewModel.refreshWeather("Lviv")
 
         // Get input City
@@ -49,18 +52,22 @@ class WeatherFragment : Fragment() {
         lifecycleScope.launch {
             sharedViewModel.weatherForecast
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .distinctUntilChanged()
                 .collect {
-                    bindForecast(it)
+                    it.map { forecast ->
+                        bindForecast(forecast)
+                    }
+
                     adapter.submitList(it)
                 }
         }
     }
 
-    private fun bindForecast(forecast: List<WeatherForecast>) {
-        binding.tvCity.text = forecast[0].main.feelsLike.toString()
-        binding.tvTemperature.text = forecast[0].main.temp.toString()
-        binding.tvWeatherDescription.text = forecast[0].weather[0].description
-        ImageLoader.loadImage(binding.ivWeatherIcon, forecast[0].weather[0].icon)
+    private fun bindForecast(forecast: WeatherForecast) {
+        binding.tvCity.text = forecast.main.feelsLike.toString()
+        binding.tvTemperature.text = forecast.main.temp.toString()
+        binding.tvWeatherDescription.text = forecast.weather.last().description
+        ImageLoader.loadImage(binding.ivWeatherIcon, forecast.weather.first().icon)
     }
 
 }
