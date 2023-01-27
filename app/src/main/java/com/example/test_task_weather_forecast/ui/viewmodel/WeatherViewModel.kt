@@ -33,6 +33,10 @@ class WeatherViewModel @Inject constructor(
                 initialValue = listOf()
             )
 
+    init {
+        refreshWeather("Lviv")
+    }
+
     fun refreshWeather(cityName: String) {
         viewModelScope.launch {
             try {
@@ -42,9 +46,4 @@ class WeatherViewModel @Inject constructor(
             }
         }
     }
-
-    fun updateWeatherForecast() {
-
-    }
-
 }

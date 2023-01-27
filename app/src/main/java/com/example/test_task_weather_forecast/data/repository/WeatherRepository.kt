@@ -35,5 +35,4 @@ class WeatherRepository @Inject constructor(
             database.insertAll(weatherList.asDatabaseModel())
         }
     }
-
 }
