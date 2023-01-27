@@ -14,6 +14,7 @@ import com.example.test_task_weather_forecast.data.model.WeatherForecast
 import com.example.test_task_weather_forecast.databinding.WeatherFragmentBinding
 import com.example.test_task_weather_forecast.ui.adapters.ForecastListAdapter
 import com.example.test_task_weather_forecast.ui.viewmodel.WeatherViewModel
+import com.example.test_task_weather_forecast.utils.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -33,9 +34,9 @@ class WeatherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = binding.rvWeatherScroll
 
-        val adapter = ForecastListAdapter
+        recyclerView = binding.rvWeatherScroll
+        val adapter = ForecastListAdapter()
         recyclerView.adapter = adapter
 
 
@@ -56,7 +57,10 @@ class WeatherFragment : Fragment() {
     }
 
     private fun bindForecast(forecast: List<WeatherForecast>) {
-        binding.tvCity = forecast[0].
+        binding.tvCity.text = forecast[0].main.feelsLike.toString()
+        binding.tvTemperature.text = forecast[0].main.temp.toString()
+        binding.tvWeatherDescription.text = forecast[0].weather[0].description
+        ImageLoader.loadImage(binding.ivWeatherIcon, forecast[0].weather[0].icon)
     }
 
 }
