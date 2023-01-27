@@ -35,7 +35,7 @@ data class WeatherForecast(
     val pop: Int,
     val sys: Sys,
     val visibility: Int,
-    val weather: List<Weather>,
+    val weather: List<Weather> = listOf(),
     val wind: Wind
 )
 

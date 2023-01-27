@@ -5,6 +5,7 @@ import com.example.test_task_weather_forecast.data.database.WeatherLocalDataSour
 import com.example.test_task_weather_forecast.data.model.WeatherForecast
 import com.example.test_task_weather_forecast.data.network.ApiResult
 import com.example.test_task_weather_forecast.data.network.WetherRemoteDataSource
+import com.example.test_task_weather_forecast.utils.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -18,12 +19,12 @@ class WeatherRepository @Inject constructor(
     suspend fun refreshWeather(cityName: String) {
         withContext(Dispatchers.IO) {
             var weatherList: List<WeatherForecast> = listOf()
-            when (val responce = network.getWeatherForecast(cityName)) {
-                is ApiResult.Success -> weatherList = responce.data.list
-                is ApiResult.Error -> Log.e(TAG, "${responce.code} ${responce.message}")
-                is ApiResult.Exception -> Log.e(TAG, "${responce.e.cause} ${responce.e.message}")
+            when (val response = network.getWeatherForecast(cityName)) {
+                is ApiResult.Success -> weatherList = response.data.list
+                is ApiResult.Error -> Log.e(TAG, "${response.code} ${response.message}")
+                is ApiResult.Exception -> Log.e(TAG, "${response.e.cause} ${response.e.message}")
             }
-            database.insertAll(weatherList)
+            database.insertAll(weatherList.asDatabaseModel())
         }
     }
 

@@ -7,10 +7,12 @@ import com.example.test_task_weather_forecast.data.model.*
 
 @Entity(tableName = "weather_database")
 data class WeatherEntity(
-    @PrimaryKey(autoGenerate = true) val key: String,
+    @PrimaryKey(autoGenerate = true)
+    val key: Int,
     val clouds: Clouds,
     val dt: Int,
-    @ColumnInfo(name = "dt_txt") val dtTxt: String,
+    @ColumnInfo(name = "dt_txt")
+    val dtTxt: String,
     val main: Main,
     val pop: Int,
     val sys: Sys,

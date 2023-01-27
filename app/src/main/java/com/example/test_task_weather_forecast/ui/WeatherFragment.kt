@@ -32,6 +32,8 @@ class WeatherFragment : Fragment() {
         // Get input City
         val typedCity = binding.ilInputCity.editText?.text.toString()
 
+        sharedViewModel.refreshWeather("Lviv")
+
 
 
 

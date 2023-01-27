@@ -7,6 +7,7 @@ import com.example.test_task_weather_forecast.utils.ConverterClouds
 import com.example.test_task_weather_forecast.utils.ConverterMain
 import com.example.test_task_weather_forecast.utils.ConverterSys
 import com.example.test_task_weather_forecast.utils.ConverterWeather
+import com.example.test_task_weather_forecast.utils.ConverterWeatherList
 import com.example.test_task_weather_forecast.utils.ConverterWind
 
 @Database(entities = [WeatherEntity::class], version = 1, exportSchema = false)
@@ -15,6 +16,7 @@ import com.example.test_task_weather_forecast.utils.ConverterWind
     ConverterMain::class,
     ConverterSys::class,
     ConverterWeather::class,
+    ConverterWeatherList::class,
     ConverterWind::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun weatherDao(): WeatherDao

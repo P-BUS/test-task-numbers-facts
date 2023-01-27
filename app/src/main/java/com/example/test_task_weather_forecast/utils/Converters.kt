@@ -35,10 +35,18 @@ class ConverterSys {
 
 class ConverterWeather {
     @TypeConverter
+    fun weatherToJson(value: Weather?) = Gson().toJson(value)
+
+    @TypeConverter
+    fun jsonToWeather(value: String) = Gson().fromJson(value, Weather::class.java)
+}
+
+class ConverterWeatherList {
+    @TypeConverter
     fun weatherListToJson(value: List<Weather>?) = Gson().toJson(value)
 
     @TypeConverter
-    fun jsonToWeatherList(value: String) = Gson().fromJson(value, Array<Weather>::class.java)
+    fun jsonToWeatherList(value: String) = Gson().fromJson(value, Array<Weather>::class.java).toList()
 }
 
 class ConverterWind {

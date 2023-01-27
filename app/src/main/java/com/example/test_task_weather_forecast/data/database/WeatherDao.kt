@@ -11,11 +11,11 @@ import kotlinx.coroutines.flow.Flow
 interface WeatherDao {
 
     @Query("SELECT * FROM weather_database")
-    fun getAllWeather(): Flow<List<WeatherForecast>>
+    fun getAllWeather(): Flow<List<WeatherEntity>>
 
     //@Query("SELECT * FROM weather_database WHERE ")
     @Upsert()
-    suspend fun insertAll(weatherForecast: List<WeatherForecast>)
+    suspend fun insertAll(weatherForecast: List<WeatherEntity>)
 
 
 }
