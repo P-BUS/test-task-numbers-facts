@@ -10,7 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.example.test_task_weather_forecast.data.model.WeatherForecast
+import com.example.test_task_weather_forecast.data.model.WeatherResponse
 import com.example.test_task_weather_forecast.databinding.WeatherFragmentBinding
 import com.example.test_task_weather_forecast.ui.adapters.ForecastListAdapter
 import com.example.test_task_weather_forecast.ui.viewmodel.WeatherViewModel
@@ -53,17 +53,17 @@ class WeatherFragment : Fragment() {
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .distinctUntilChanged()
                 .collect {
-                    bindForecast(it.list[0])
+                    bindForecast(it)
                     adapter.submitList(it.list)
                 }
         }
     }
 
-    private fun bindForecast(forecast: WeatherForecast) {
-        binding.tvCity.text = forecast.main.feelsLike.toString()
-        binding.tvTemperature.text = forecast.main.temp.toString()
-        binding.tvWeatherDescription.text = forecast.weather.last().description
-        ImageLoader.loadImage(binding.ivWeatherIcon, forecast.weather.first().icon)
+    private fun bindForecast(forecast: WeatherResponse) {
+        binding.tvCity.text = forecast.city.name
+        binding.tvTemperature.text = forecast.list.first().main.temp.toString()
+        binding.tvWeatherDescription.text = forecast.list.first().weather.last().description
+        ImageLoader.loadImage(binding.ivWeatherIcon, forecast.list.first().weather.first().icon)
     }
 
 }

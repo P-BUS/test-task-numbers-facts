@@ -2,16 +2,18 @@ package com.example.test_task_weather_forecast.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test_task_weather_forecast.data.model.WeatherForecast
 import com.example.test_task_weather_forecast.databinding.ItemViewBinding
 import com.example.test_task_weather_forecast.utils.ImageLoader
 
-class ForecastListAdapter() : ListAdapter<WeatherForecast, ForecastListAdapter.ListViewHolder>(DiffCallback) {
+class ForecastListAdapter() :
+    ListAdapter<WeatherForecast, ForecastListAdapter.ListViewHolder>(DiffCallback) {
 
-    class ListViewHolder(private var binding: ItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ListViewHolder(private var binding: ItemViewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(forecast: WeatherForecast) {
             binding.tvDate.text = forecast.dtTxt
             binding.tvTemperature.text = forecast.main.temp.toString()
@@ -32,9 +34,13 @@ class ForecastListAdapter() : ListAdapter<WeatherForecast, ForecastListAdapter.L
 
     companion object DiffCallback : DiffUtil.ItemCallback<WeatherForecast>() {
         override fun areItemsTheSame(oldItem: WeatherForecast, newItem: WeatherForecast): Boolean {
-            return oldItem.key == newItem.key
+            return oldItem.main.temp == newItem.main.temp
         }
-        override fun areContentsTheSame(oldItem: WeatherForecast, newItem: WeatherForecast): Boolean {
+
+        override fun areContentsTheSame(
+            oldItem: WeatherForecast,
+            newItem: WeatherForecast
+        ): Boolean {
             return oldItem == newItem
         }
     }
