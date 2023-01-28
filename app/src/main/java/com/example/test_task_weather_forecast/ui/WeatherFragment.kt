@@ -1,7 +1,6 @@
 package com.example.test_task_weather_forecast.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,8 +53,8 @@ class WeatherFragment : Fragment() {
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .distinctUntilChanged()
                 .collect {
-                    bindForecast(it)
-                    adapter.submitList(it)
+                    bindForecast(it.list[0])
+                    adapter.submitList(it.list)
                 }
         }
     }
