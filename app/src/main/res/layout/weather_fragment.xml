@@ -22,9 +22,9 @@
         android:id="@+id/il_input_city"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="56dp"
         android:layout_marginStart="@dimen/margin_large"
-        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_small"
         android:layout_marginEnd="@dimen/margin_large"
         android:hint="@string/hint_city"
         app:endIconMode="clear_text"
@@ -36,7 +36,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1" />
 
@@ -59,8 +60,7 @@
         android:id="@+id/iv_weather_icon"
         android:layout_width="164dp"
         android:layout_height="164dp"
-        android:layout_marginTop="@dimen/margin_xlarge"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/il_input_city" />
@@ -69,7 +69,6 @@
         android:id="@+id/tv_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_medium"
         android:textSize="@dimen/large_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
