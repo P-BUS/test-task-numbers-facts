@@ -1,91 +1,79 @@
 package com.example.test_task_weather_forecast.data.model
 
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
 data class WeatherResponse(
-    val key: Int = 0,
-    val city: City,
-    val cnt: Int,
-    val cod: String,
-    val list: List<WeatherForecast>,
-    val message: Int
+    val city: City? = null,
+    val cnt: Int? = null,
+    val cod: String? = null,
+    val list: List<WeatherForecast>? = null,
+    val message: Int? = null
 )
 
-
-@JsonClass(generateAdapter = true)
 data class City(
-    val coord: Coord,
-    val country: String,
-    val id: Int,
-    val name: String,
-    val population: Int,
-    val sunrise: Int,
-    val sunset: Int,
-    val timezone: Int
+    val coord: Coord? = null,
+    val country: String? = null,
+    val id: Int? = null,
+    val name: String? = null,
+    val population: Int? = null,
+    val sunrise: Int? = null,
+    val sunset: Int? = null,
+    val timezone: Int? = null
 )
 
-@JsonClass(generateAdapter = true)
 data class WeatherForecast(
-    val clouds: Clouds,
-    val dt: Int,
+    val clouds: Clouds? = null,
+    val dt: Int? = null,
     @Json(name = "dt_txt")
-    val dtTxt: String,
-    val main: Main,
-    val pop: Int,
-    val sys: Sys,
-    val visibility: Int,
-    val weather: List<Weather> = listOf(),
-    val wind: Wind
+    val dtTxt: String? = null,
+    val main: Main? = null,
+    val pop: Int? = null,
+    val sys: Sys? = null,
+    val visibility: Int? = null,
+    val weather: List<Weather>? = null,
+    val wind: Wind? = null
 )
 
-@JsonClass(generateAdapter = true)
 data class Coord(
-    val lat: Double,
-    val lon: Double
+    val lat: Double? = null,
+    val lon: Double? = null
 )
 
-@JsonClass(generateAdapter = true)
 data class Clouds(
-    val all: Int
+    val all: Int? = null
 )
 
-@JsonClass(generateAdapter = true)
 data class Main(
     @Json(name = "feels_like")
-    val feelsLike: Double,
+    val feelsLike: Double? = null,
     @Json(name = "grnd_level")
-    val grndLevel: Int,
-    val humidity: Int,
-    val pressure: Int,
+    val grndLevel: Int? = null,
+    val humidity: Int? = null,
+    val pressure: Int? = null,
     @Json(name = "sea_level")
-    val seaLevel: Int,
-    val temp: Double,
+    val seaLevel: Int? = null,
+    val temp: Double? = null,
     @Json(name = "temp_kf")
-    val tempKf: Double,
+    val tempKf: Double? = null,
     @Json(name = "temp_max")
-    val tempMax: Double,
+    val tempMax: Double? = null,
     @Json(name = "temp_min")
-    val temp_min: Double
+    val temp_min: Double? = null
 )
 
-@JsonClass(generateAdapter = true)
 data class Sys(
-    val pod: String
+    val pod: String? = null
 )
 
-@JsonClass(generateAdapter = true)
 data class Weather(
-    val description: String,
-    val icon: String,
-    val id: Int,
-    val main: String
+    val description: String? = null,
+    val icon: String? = null,
+    val id: Int? = null,
+    val main: String? = null
 )
 
-@JsonClass(generateAdapter = true)
 data class Wind(
-    val deg: Int,
-    val gust: Double,
-    val speed: Double
+    val deg: Int? = null,
+    val gust: Double? = null,
+    val speed: Double? = null
 )

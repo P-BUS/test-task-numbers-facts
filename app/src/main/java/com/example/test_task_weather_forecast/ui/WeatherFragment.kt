@@ -60,7 +60,7 @@ class WeatherFragment : Fragment() {
     }
 
     private fun bindForecast(forecast: WeatherResponse) {
-        binding.tvCity.text = forecast.city.name
+        binding.tvCity.text = forecast.city?.name
         binding.tvTemperature.text = forecast.list.first().main.temp.toString()
         binding.tvWeatherDescription.text = forecast.list.first().weather.last().description
         ImageLoader.loadImage(binding.ivWeatherIcon, forecast.list.first().weather.first().icon)

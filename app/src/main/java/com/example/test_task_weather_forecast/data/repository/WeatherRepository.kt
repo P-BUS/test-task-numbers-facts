@@ -2,12 +2,11 @@ package com.example.test_task_weather_forecast.data.repository
 
 import android.util.Log
 import com.example.test_task_weather_forecast.data.database.WeatherLocalDataSource
-import com.example.test_task_weather_forecast.data.model.WeatherForecast
 import com.example.test_task_weather_forecast.data.model.WeatherResponse
 import com.example.test_task_weather_forecast.data.network.ApiResult
 import com.example.test_task_weather_forecast.data.network.WetherRemoteDataSource
-import com.example.test_task_weather_forecast.utils.asDatabaseModel
-import com.example.test_task_weather_forecast.utils.asDomainModel
+import com.example.test_task_weather_forecast.utils.Mappers.asDatabaseModel
+import com.example.test_task_weather_forecast.utils.Mappers.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -20,7 +19,6 @@ class WeatherRepository @Inject constructor(
     private val network: WetherRemoteDataSource,
     private val database: WeatherLocalDataSource
 ) {
-
 
     val weatherForecast: Flow<WeatherResponse> =
         database.getAllWeather()
