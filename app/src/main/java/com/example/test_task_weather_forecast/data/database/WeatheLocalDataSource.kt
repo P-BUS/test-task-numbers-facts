@@ -8,9 +8,9 @@ import javax.inject.Inject
 class WeatherLocalDataSource @Inject constructor(
     private val database: AppDatabase
 ) {
-    fun getAllWeather(): Flow<List<WeatherEntity>> =
+    fun getAllWeather(): Flow<WeatherEntity> =
         database.weatherDao().getAllWeather()
 
-    suspend fun insertAll(weatherForecast: List<WeatherEntity>) =
+    suspend fun insertAll(weatherForecast: WeatherEntity) =
         database.weatherDao().insertAll(weatherForecast)
 }

@@ -5,6 +5,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class WeatherResponse(
+    val key: Int,
     val city: City,
     val cnt: Int,
     val cod: String,

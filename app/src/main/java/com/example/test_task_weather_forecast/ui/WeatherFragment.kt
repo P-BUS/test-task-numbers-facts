@@ -54,10 +54,7 @@ class WeatherFragment : Fragment() {
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .distinctUntilChanged()
                 .collect {
-                    it.map { forecast ->
-                        bindForecast(forecast)
-                    }
-
+                    bindForecast(it)
                     adapter.submitList(it)
                 }
         }

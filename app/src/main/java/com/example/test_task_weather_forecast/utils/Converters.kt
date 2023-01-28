@@ -64,3 +64,23 @@ class ConverterWind {
         Gson().fromJson(value, Wind::class.java)
 }
 
+class ConverterCity {
+    @TypeConverter
+    fun cityToJson(value: City?) =
+        Gson().toJson(value)
+
+    @TypeConverter
+    fun jsonToCity(value: String) =
+        Gson().fromJson(value, City::class.java)
+}
+
+class ConverterWeatherForecastList {
+    @TypeConverter
+    fun weatherForecastListToJson(value: List<WeatherForecast>?) =
+        Gson().toJson(value)
+
+    @TypeConverter
+    fun jsonToWeatherForecastList(value: String) =
+        Gson().fromJson(value, Array<WeatherForecast>::class.java).toList()
+}
+
