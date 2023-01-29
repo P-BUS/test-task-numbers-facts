@@ -6,8 +6,8 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 
-const val BASIC_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-const val OUTPUT_FORMAT = "dd.MM.yyyy"
+const val BASIC_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss"
+const val OUTPUT_FORMAT = "dd.MM.yyyy HH:mm"
 
 object Formatters {
 
@@ -21,7 +21,7 @@ object Formatters {
         }
         return try {
             val parsed = input.parse(inputDate)
-            output.format(parsed)
+            output.format(parsed).toString()
         } catch (e: ParseException) {
             Log.e(TAG, "$TAG::formatDateFromString - ParseException - dateFormat")
             ""
