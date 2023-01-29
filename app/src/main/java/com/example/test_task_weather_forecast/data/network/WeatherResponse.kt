@@ -27,7 +27,7 @@ data class WeatherForecast(
     @Json(name = "dt_txt")
     val dtTxt: String? = null,
     val main: Main? = null,
-    val pop: Int? = null,
+    //val pop: Int? = null,
     val sys: Sys? = null,
     val visibility: Int? = null,
     val weather: List<Weather>? = null,

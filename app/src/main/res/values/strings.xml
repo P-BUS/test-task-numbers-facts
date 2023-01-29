@@ -2,5 +2,6 @@
     <string name="app_name">test-task-weather-forecast</string>
     <string name="city">Lviv</string>
     <string name="hint_city">Type your city</string>
+    <string name="temperature">%1$d \u2103</string>
     <string name="text_forecast">Forecast for 5 days</string>
 </resources>

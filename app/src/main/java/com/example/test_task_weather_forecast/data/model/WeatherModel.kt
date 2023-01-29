@@ -11,7 +11,7 @@ data class WeatherModel(
 
 data class WeatherForecastHourly(
     val dtTxt: String,
-    val temp: Double,
+    val temp: Int,
     val weather: List<WeatherHourly>,
 )
 

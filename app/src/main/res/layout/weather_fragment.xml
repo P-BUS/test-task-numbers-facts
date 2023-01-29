@@ -44,19 +44,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- <ImageView
-         android:id="@+id/iv_search_icon"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         app:layout_constraintEnd_toEndOf="@id/il_input_city"
-         android:focusable="false"
-         android:clickable="false"
-         app:layout_constraintTop_toTopOf="@id/il_input_city"
-         android:layout_marginEnd="@dimen/margin_small"
-         app:layout_constraintBottom_toBottomOf="@id/il_input_city"
-         app:srcCompat="@drawable/ic_search_24"
-         />-->
-
     <ImageView
         android:id="@+id/iv_weather_icon"
         android:layout_width="164dp"
@@ -71,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/large_text"
+        android:text="@string/temperature"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_weather_icon"
@@ -82,20 +70,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_medium"
         android:textSize="@dimen/medium_text"
-        app:layout_constraintBottom_toTopOf="@+id/tv_forecast"
+        app:layout_constraintBottom_toTopOf="@+id/rv_weather_scroll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_temperature"
         tools:text="Sunny" />
-
-    <TextView
-        android:id="@+id/tv_forecast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_medium"
-        android:text="@string/text_forecast"
-        app:layout_constraintBottom_toTopOf="@id/rv_weather_scroll"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_weather_scroll"

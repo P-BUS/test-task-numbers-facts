@@ -7,6 +7,7 @@ import com.example.test_task_weather_forecast.data.model.WeatherForecastHourly
 import com.example.test_task_weather_forecast.data.model.WeatherHourly
 import com.example.test_task_weather_forecast.data.model.WeatherModel
 import com.example.test_task_weather_forecast.data.model.WeatherResponse
+import com.example.test_task_weather_forecast.utils.Formatters.formatDateFromString
 
 object  Mappers {
     fun WeatherEntity.asDomainModel(): WeatherModel {
@@ -30,8 +31,12 @@ object  Mappers {
     }
     fun WeatherForecast.asDatabaseModel(): WeatherForecastHourly {
         return WeatherForecastHourly(
-            dtTxt = dtTxt ?: "",
-            temp = main?.temp ?: 0.0,
+            dtTxt = formatDateFromString(
+                BASIC_DATE_TIME_FORMAT,
+                OUTPUT_FORMAT,
+                dtTxt
+            ) ?: "",
+            temp = main?.temp?.toInt() ?: 0,
             weather = weather?.map {
                                    it.asDatabaseModel()
             } ?: listOf(),

@@ -35,7 +35,7 @@ class WeatherViewModel @Inject constructor(
             )
 
     init {
-        refreshWeather("Lviv")
+        //refreshWeather("Lviv")
     }
 
     fun refreshWeather(cityName: String) {
