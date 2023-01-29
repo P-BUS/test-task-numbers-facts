@@ -7,12 +7,12 @@ import com.example.test_task_weather_forecast.data.model.WeatherForecast
 
 @Entity(tableName = "weather_database")
 data class WeatherEntity(
-    val city: City?,
-    val cnt: Int? = 0,
-    val cod: String? = "",
-    val list: List<WeatherForecast>? = listOf(),
-    val message: Int? = 0
+    val cityName: String = "",
+    val lat: Double = 0.0,
+    val lon: Double = 0.0,
+    val list: List<WeatherForecast> = listOf(),
+
 ) {
     @PrimaryKey(autoGenerate = true)
-    var key: Int? = 0
+    var key: Int = 0
 }
