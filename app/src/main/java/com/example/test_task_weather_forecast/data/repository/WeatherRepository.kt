@@ -34,6 +34,7 @@ class WeatherRepository @Inject constructor(
             when (val response = network.getWeatherForecast(cityName)) {
                 is ApiResult.Success -> {
                     val weather = response.data
+                    database.deleteAll()
                     database.insertAll(weather.asDatabaseModel())}
                 is ApiResult.Error -> Log.e(TAG, "${response.code} ${response.message}")
                 is ApiResult.Exception -> Log.e(TAG, "${response.e.cause} ${response.e.message}")

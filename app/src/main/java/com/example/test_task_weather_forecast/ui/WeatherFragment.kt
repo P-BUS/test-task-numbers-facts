@@ -1,11 +1,17 @@
 package com.example.test_task_weather_forecast.ui
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -73,5 +79,4 @@ class WeatherFragment : Fragment() {
         binding.tvWeatherDescription.text = forecast.list.first().weather.last().description
         ImageLoader.loadImage(binding.ivWeatherIcon, forecast.list.first().weather.first().icon)
     }
-
 }

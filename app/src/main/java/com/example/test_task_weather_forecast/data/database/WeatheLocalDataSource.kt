@@ -13,4 +13,7 @@ class WeatherLocalDataSource @Inject constructor(
 
     suspend fun insertAll(weatherForecast: WeatherEntity) =
         database.weatherDao().insertAll(weatherForecast)
+
+    suspend fun deleteAll() =
+        database.weatherDao().deleteAll()
 }
