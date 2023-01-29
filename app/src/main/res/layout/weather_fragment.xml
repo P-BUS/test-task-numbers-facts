@@ -35,9 +35,10 @@
         app:startIconDrawable="@drawable/ic_search_24">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_edit_city"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLines="1" />
 

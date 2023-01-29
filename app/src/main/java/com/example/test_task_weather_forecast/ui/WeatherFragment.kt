@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -44,10 +46,15 @@ class WeatherFragment : Fragment() {
         recyclerView.adapter = adapter
 
 
-        //sharedViewModel.refreshWeather("Lviv")
-
-        // Get input City
-        val typedCity = binding.ilInputCity.editText?.text.toString()
+        binding.etEditCity.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val editText = binding.etEditCity.text.toString()
+                sharedViewModel.refreshWeather(editText)
+                true
+            } else {
+                false
+            }
+        }
 
         lifecycleScope.launch {
             sharedViewModel.weatherForecast
