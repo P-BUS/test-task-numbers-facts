@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.example.test_task_weather_forecast.data.model.WeatherModel
 import com.example.test_task_weather_forecast.data.model.WeatherResponse
 import com.example.test_task_weather_forecast.databinding.WeatherFragmentBinding
 import com.example.test_task_weather_forecast.ui.adapters.ForecastListAdapter
@@ -59,9 +60,9 @@ class WeatherFragment : Fragment() {
         }
     }
 
-    private fun bindForecast(forecast: WeatherResponse) {
-        binding.tvCity.text = forecast.city?.name
-        binding.tvTemperature.text = forecast.list.first().main.temp.toString()
+    private fun bindForecast(forecast: WeatherModel) {
+        binding.tvCity.text = forecast.cityName
+        binding.tvTemperature.text = forecast.list.first().temp.toString()
         binding.tvWeatherDescription.text = forecast.list.first().weather.last().description
         ImageLoader.loadImage(binding.ivWeatherIcon, forecast.list.first().weather.first().icon)
     }

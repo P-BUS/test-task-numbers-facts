@@ -6,17 +6,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test_task_weather_forecast.data.model.WeatherForecast
+import com.example.test_task_weather_forecast.data.model.WeatherForecastHourly
 import com.example.test_task_weather_forecast.databinding.ItemViewBinding
 import com.example.test_task_weather_forecast.utils.ImageLoader
 
 class ForecastListAdapter() :
-    ListAdapter<WeatherForecast, ForecastListAdapter.ListViewHolder>(DiffCallback) {
+    ListAdapter<WeatherForecastHourly, ForecastListAdapter.ListViewHolder>(DiffCallback) {
 
     class ListViewHolder(private var binding: ItemViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(forecast: WeatherForecast) {
+        fun bind(forecast: WeatherForecastHourly) {
             binding.tvDate.text = forecast.dtTxt
-            binding.tvTemperature.text = forecast.main.temp.toString()
+            binding.tvTemperature.text = forecast.temp.toString()
             ImageLoader.loadImage(binding.ivItemWeatherIcon, forecast.weather[0].icon)
         }
     }
@@ -32,15 +33,12 @@ class ForecastListAdapter() :
         holder.bind(getItem(position))
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<WeatherForecast>() {
-        override fun areItemsTheSame(oldItem: WeatherForecast, newItem: WeatherForecast): Boolean {
-            return oldItem.main.temp == newItem.main.temp
+    companion object DiffCallback : DiffUtil.ItemCallback<WeatherForecastHourly>() {
+        override fun areItemsTheSame(oldItem: WeatherForecastHourly, newItem: WeatherForecastHourly): Boolean {
+            return oldItem.temp == newItem.temp
         }
 
-        override fun areContentsTheSame(
-            oldItem: WeatherForecast,
-            newItem: WeatherForecast
-        ): Boolean {
+        override fun areContentsTheSame(oldItem: WeatherForecastHourly, newItem: WeatherForecastHourly): Boolean {
             return oldItem == newItem
         }
     }

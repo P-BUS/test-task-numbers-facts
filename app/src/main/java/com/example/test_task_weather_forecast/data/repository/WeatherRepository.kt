@@ -3,13 +3,16 @@ package com.example.test_task_weather_forecast.data.repository
 import android.util.Log
 import com.example.test_task_weather_forecast.data.database.WeatherLocalDataSource
 import com.example.test_task_weather_forecast.data.model.Weather
+import com.example.test_task_weather_forecast.data.model.WeatherModel
 import com.example.test_task_weather_forecast.data.model.WeatherResponse
 import com.example.test_task_weather_forecast.data.network.ApiResult
 import com.example.test_task_weather_forecast.data.network.WetherRemoteDataSource
 import com.example.test_task_weather_forecast.utils.Mappers.asDatabaseModel
 import com.example.test_task_weather_forecast.utils.Mappers.asDomainModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -21,13 +24,13 @@ class WeatherRepository @Inject constructor(
     private val database: WeatherLocalDataSource
 ) {
 
-    val weatherForecast: Flow<WeatherResponse> =
-        database.getAllWeather()
-            .map {it.asDomainModel() }
+    val weatherForecast: Flow<WeatherModel> =
+            database.getAllWeather().filterNotNull().map {
+                    it.asDomainModel()
+            }
 
     suspend fun refreshWeather(cityName: String) {
         withContext(Dispatchers.IO) {
-
             when (val response = network.getWeatherForecast(cityName)) {
                 is ApiResult.Success -> {
                     val weather = response.data

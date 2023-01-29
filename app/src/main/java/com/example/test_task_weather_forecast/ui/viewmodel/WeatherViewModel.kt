@@ -3,6 +3,7 @@ package com.example.test_task_weather_forecast.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.test_task_weather_forecast.data.model.WeatherModel
 import com.example.test_task_weather_forecast.data.model.WeatherResponse
 import com.example.test_task_weather_forecast.data.repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +23,7 @@ class WeatherViewModel @Inject constructor(
     private val repository: WeatherRepository
 ) : ViewModel() {
 
-    val weatherForecast: SharedFlow<WeatherResponse> =
+    val weatherForecast: SharedFlow<WeatherModel> =
         repository.weatherForecast
             .retry(3) { exeption ->
                 (exeption is IOException).also { if (it) delay(1000) }

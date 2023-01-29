@@ -5,10 +5,9 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/weatherFragment">
 
-    <fragment android:id="@+id/placeholder" />
     <fragment
         android:id="@+id/weatherFragment"
         android:name="com.example.test_task_weather_forecast.ui.WeatherFragment"
-        android:label="weather_fragment"
+        android:label="Weather forecast"
         tools:layout="@layout/weather_fragment" />
 </navigation>
