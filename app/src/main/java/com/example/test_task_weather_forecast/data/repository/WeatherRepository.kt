@@ -2,6 +2,7 @@ package com.example.test_task_weather_forecast.data.repository
 
 import android.util.Log
 import com.example.test_task_weather_forecast.data.database.WeatherLocalDataSource
+import com.example.test_task_weather_forecast.data.model.Weather
 import com.example.test_task_weather_forecast.data.model.WeatherResponse
 import com.example.test_task_weather_forecast.data.network.ApiResult
 import com.example.test_task_weather_forecast.data.network.WetherRemoteDataSource
@@ -26,13 +27,14 @@ class WeatherRepository @Inject constructor(
 
     suspend fun refreshWeather(cityName: String) {
         withContext(Dispatchers.IO) {
-            lateinit var weather: WeatherResponse
+
             when (val response = network.getWeatherForecast(cityName)) {
-                is ApiResult.Success -> weather = response.data
+                is ApiResult.Success -> {
+                    val weather = response.data
+                    database.insertAll(weather.asDatabaseModel())}
                 is ApiResult.Error -> Log.e(TAG, "${response.code} ${response.message}")
                 is ApiResult.Exception -> Log.e(TAG, "${response.e.cause} ${response.e.message}")
             }
-            database.insertAll(weather.asDatabaseModel())
         }
     }
 }
