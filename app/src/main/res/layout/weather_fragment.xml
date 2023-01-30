@@ -59,6 +59,7 @@
         android:layout_height="wrap_content"
         android:text="@string/temperature"
         android:textSize="@dimen/large_text"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_weather_icon"

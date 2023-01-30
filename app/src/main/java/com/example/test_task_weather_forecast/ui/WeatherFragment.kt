@@ -107,6 +107,7 @@ class WeatherFragment : Fragment() {
 
     private fun bindForecast(forecast: WeatherModel) {
         binding.tvCity.text = forecast.cityName
+        binding.tvTemperature.visibility = View.VISIBLE // Needed not to see string parameters on empty screen
         binding.tvTemperature.text = getString(R.string.temperature, forecast.list.first().temp)
         binding.tvWeatherDescription.text = forecast.list.first().weather.last().description
         ImageLoader.loadImage(binding.ivWeatherIcon, forecast.list.first().weather.first().icon)
