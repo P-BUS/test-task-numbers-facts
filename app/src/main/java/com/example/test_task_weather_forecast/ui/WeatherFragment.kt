@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationRequest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,9 +26,9 @@ import com.example.test_task_weather_forecast.databinding.WeatherFragmentBinding
 import com.example.test_task_weather_forecast.ui.adapters.ForecastListAdapter
 import com.example.test_task_weather_forecast.ui.viewmodel.WeatherViewModel
 import com.example.test_task_weather_forecast.utils.ImageLoader
-import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.OnTokenCanceledListener
@@ -68,7 +67,7 @@ class WeatherFragment : Fragment() {
         binding.etEditCity.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val editText = binding.etEditCity.text.toString()
-                sharedViewModel.refreshWeather(editText)
+                sharedViewModel.refreshWeatherByCity(editText)
                 // Hides the keyboard
                 parentFragment?.hideKeyboard()
                 true
@@ -114,43 +113,31 @@ class WeatherFragment : Fragment() {
                 }
             }
         }
-        // check whether app already has the permissions,
-        // and whether app needs to show a permission rationale dialog
-        locationPermissionRequest?.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION))
 
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
+        if (ActivityCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        }
-
-        // Get current location
-        fusedLocationClient.getCurrentLocation(
-            com.google.android.gms.location.Priority.PRIORITY_BALANCED_POWER_ACCURACY,
-            object : CancellationToken() {
-                override fun onCanceledRequested(listener: OnTokenCanceledListener) = CancellationTokenSource().token
-                override fun isCancellationRequested() = false
-            })
-            .addOnSuccessListener { location : Location? ->
-                // Got last known location.
-                if (location == null)
-                    Toast.makeText(requireContext(), "Cannot get location.", Toast.LENGTH_SHORT).show()
-                else {
-                    val lat = location.latitude
-                    val lon = location.longitude
+            // Get current location
+            fusedLocationClient.getCurrentLocation(
+                Priority.PRIORITY_HIGH_ACCURACY,
+                object : CancellationToken() {
+                    override fun onCanceledRequested(listener: OnTokenCanceledListener) = CancellationTokenSource().token
+                    override fun isCancellationRequested() = false
+                })
+                .addOnSuccessListener { location : Location? ->
+                    val lat = location?.latitude?.toFloat()
+                    val lon = location?.longitude?.toFloat()
+                    if (lat != null && lon != null) {
+                        sharedViewModel.refreshWeatherByLocation(lat, lon)
+                    }
                 }
-            }
+        } else {
+            // check whether app already has the permissions,
+            // and whether app needs to show a permission rationale dialog
+            locationPermissionRequest?.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION))
+        }
     }
-
 
     private fun bindForecast(forecast: WeatherModel) {
         binding.tvCity.text = forecast.cityName

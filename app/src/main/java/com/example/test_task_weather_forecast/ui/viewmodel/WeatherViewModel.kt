@@ -38,10 +38,20 @@ class WeatherViewModel @Inject constructor(
         //refreshWeather("Lviv")
     }
 
-    fun refreshWeather(cityName: String) {
+    fun refreshWeatherByCity(cityName: String) {
         viewModelScope.launch {
             try {
-                repository.refreshWeather(cityName)
+                repository.refreshWeatherByCity(cityName)
+            } catch (exeption: IOException) {
+                Log.e(TAG, "IO Exception $exeption, you might not have internet connection")
+            }
+        }
+    }
+
+    fun refreshWeatherByLocation(latitude: Float, longitude: Float) {
+        viewModelScope.launch {
+            try {
+                repository.refreshWeatherByLocation(latitude, longitude)
             } catch (exeption: IOException) {
                 Log.e(TAG, "IO Exception $exeption, you might not have internet connection")
             }

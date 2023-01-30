@@ -26,9 +26,23 @@ class WeatherRepository @Inject constructor(
             it.asDomainModel()
         }
 
-    suspend fun refreshWeather(cityName: String) {
+    suspend fun refreshWeatherByCity(cityName: String) {
         withContext(Dispatchers.IO) {
-            when (val response = network.getWeatherForecast(cityName)) {
+            when (val response = network.getWeatherForecastByCity(cityName)) {
+                is ApiResult.Success -> {
+                    val weather = response.data
+                    database.deleteAll()
+                    database.insertAll(weather.asDatabaseModel())
+                }
+                is ApiResult.Error -> Log.e(TAG, "${response.code} ${response.message}")
+                is ApiResult.Exception -> Log.e(TAG, "${response.e.cause} ${response.e.message}")
+            }
+        }
+    }
+
+    suspend fun refreshWeatherByLocation(latitude: Float, longitude: Float) {
+        withContext(Dispatchers.IO) {
+            when (val response = network.getWeatherForecastByLocation(latitude, longitude)) {
                 is ApiResult.Success -> {
                     val weather = response.data
                     database.deleteAll()

@@ -6,4 +6,5 @@
     <string name="text_forecast">Forecast for 5 days</string>
     <string name="snackbar_permission">Location permission was granted</string>
     <string name="snackbar_no_permission">Location permission is NOT granted</string>
+    <string name="empty_location">Cannot get location </string>
 </resources>
