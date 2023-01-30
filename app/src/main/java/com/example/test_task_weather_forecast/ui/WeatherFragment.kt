@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -57,7 +58,7 @@ class WeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         recyclerView = binding.rvWeatherScroll
         val adapter = ForecastListAdapter()
@@ -113,29 +114,36 @@ class WeatherFragment : Fragment() {
                 }
             }
         }
+        // check whether app already has the permissions,
+        // and whether app needs to show a permission rationale dialog
+        locationPermissionRequest?.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION))
 
-        if (ActivityCompat.checkSelfPermission(requireContext(),
+
+        if (ActivityCompat.checkSelfPermission(requireActivity(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_GRANTED && isLocationCondition()
         ) {
-            // Get current location
-            fusedLocationClient.getCurrentLocation(
+            // Permission is granted. Get current location
+            fusedLocationClient.lastLocation
+               /* .getCurrentLocation(
                 Priority.PRIORITY_HIGH_ACCURACY,
                 object : CancellationToken() {
                     override fun onCanceledRequested(listener: OnTokenCanceledListener) = CancellationTokenSource().token
                     override fun isCancellationRequested() = false
-                })
+                })*/
                 .addOnSuccessListener { location : Location? ->
-                    val lat = location?.latitude?.toFloat()
-                    val lon = location?.longitude?.toFloat()
-                    if (lat != null && lon != null) {
-                        sharedViewModel.refreshWeatherByLocation(lat, lon)
+                    if (location != null) {
+                    val lat = location.latitude.toFloat()
+                    val lon = location.longitude.toFloat()
+                    sharedViewModel.refreshWeatherByLocation(lat, lon)
                     }
                 }
         } else {
-            // check whether app already has the permissions,
-            // and whether app needs to show a permission rationale dialog
-            locationPermissionRequest?.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION))
+            Snackbar.make(
+                binding.root,
+                getString(R.string.snackbar_no_permission),
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -155,5 +163,13 @@ class WeatherFragment : Fragment() {
         val inputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun isLocationCondition(): Boolean {
+        // Initialise location manager
+        val locationManager: LocationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        // Check condition
+        return (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
     }
 }
