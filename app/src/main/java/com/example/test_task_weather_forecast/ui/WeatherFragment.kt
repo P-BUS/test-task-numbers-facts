@@ -120,14 +120,11 @@ class WeatherFragment : Fragment() {
             ) == PackageManager.PERMISSION_GRANTED && isLocationCondition()
         ) {
             // Permission is granted. Get current location
-            fusedLocationClient
-                //lastLocation
-                .getCurrentLocation(
+            fusedLocationClient.getCurrentLocation(
                     Priority.PRIORITY_HIGH_ACCURACY,
                     object : CancellationToken() {
                         override fun onCanceledRequested(listener: OnTokenCanceledListener) =
                             CancellationTokenSource().token
-
                         override fun isCancellationRequested() = false
                     })
                 .addOnSuccessListener { location: Location? ->
