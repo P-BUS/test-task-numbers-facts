@@ -9,8 +9,8 @@ Location - FusedLocationClient <br />
 Image loader - Coil <br /> 
 Navigation - Jet Pack Navigation Component <br /> 
 Architecture - MVVM <br /> 
-Async - Coroutines
-State - SharedFlow
+Async - Coroutines <br /> 
+State - SharedFlow <br /> 
 DI - Dagger Hilt
 
 from left to right: starter screen, location permission request, weather forecast found by geolocation, weather forecast found by city name.
