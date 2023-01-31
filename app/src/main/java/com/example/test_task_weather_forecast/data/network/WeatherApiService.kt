@@ -9,7 +9,6 @@ const val BASE_URL = "https://api.openweathermap.org/"
 const val ENDPOINT = "data/2.5/forecast "
 const val API_KEY = "6ee76d21efd76f29a47aa8098659a46e"
 
-
 interface WeatherApiService {
 
     @GET(ENDPOINT)

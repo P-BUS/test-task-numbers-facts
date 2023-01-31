@@ -124,8 +124,6 @@ class WeatherFragment : Fragment() {
         }
     }
 
-
-
     private fun bindForecast(forecast: WeatherModel) {
         binding.tvCity.text = forecast.cityName
         binding.tvTemperature.visibility =

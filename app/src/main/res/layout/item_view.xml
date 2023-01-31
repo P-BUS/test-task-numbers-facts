@@ -39,8 +39,6 @@
             android:textColor="@color/secondaryDarkColor"
             android:textSize="@dimen/medium_text"
             tools:text="+10 *C" />
-
     </LinearLayout>
-
 
 </com.google.android.material.card.MaterialCardView>

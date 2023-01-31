@@ -58,7 +58,6 @@
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLines="1" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
@@ -109,6 +108,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/item_view" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

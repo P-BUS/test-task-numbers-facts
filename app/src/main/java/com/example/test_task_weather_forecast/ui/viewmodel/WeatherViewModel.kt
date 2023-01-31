@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.test_task_weather_forecast.data.model.WeatherModel
-import com.example.test_task_weather_forecast.data.model.WeatherResponse
 import com.example.test_task_weather_forecast.data.repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -33,10 +32,6 @@ class WeatherViewModel @Inject constructor(
                 SharingStarted.WhileSubscribed(5000),
                 1
             )
-
-    init {
-        //refreshWeather("Lviv")
-    }
 
     fun refreshWeatherByCity(cityName: String) {
         viewModelScope.launch {

@@ -1,7 +1,5 @@
 package com.example.test_task_weather_forecast.data.model
 
-import com.squareup.moshi.Json
-
 data class WeatherModel(
     val cityName: String,
     val lat: Double,
