@@ -56,7 +56,7 @@ class WeatherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         recyclerView = binding.rvWeatherScroll
@@ -87,59 +87,63 @@ class WeatherFragment : Fragment() {
                 }
         }
 
-        // Determine which permissions the system has granted to your app
-        val locationPermissionRequest = activity?.registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { permissions ->
-            when {
-                permissions.getOrDefault(
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    false
-                ) -> {
-                    // Location access granted.
-                    Snackbar.make(
-                        binding.root,
-                        getString(R.string.snackbar_permission),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
+
+            // Determine which permissions the system has granted to your app
+            val locationPermissionRequest = activity?.registerForActivityResult(
+                ActivityResultContracts.RequestMultiplePermissions()
+            ) { permissions ->
+                when {
+                    permissions.getOrDefault(
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        false
+                    ) -> {
+                        // Location access granted.
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.snackbar_permission),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                    else -> {
+                        // No location access granted.
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.snackbar_no_permission),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
                 }
-                else -> {
-                    // No location access granted.
-                    Snackbar.make(
-                        binding.root,
-                        getString(R.string.snackbar_no_permission),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
+            }
+        binding.button.setOnClickListener {
+            if (ActivityCompat.checkSelfPermission(
+                    requireActivity(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED && isLocationCondition()
+            ) {
+                // Permission is granted. Get current location
+                fusedLocationClient.getCurrentLocation(
+                    Priority.PRIORITY_HIGH_ACCURACY,
+                    object : CancellationToken() {
+                        override fun onCanceledRequested(listener: OnTokenCanceledListener) =
+                            CancellationTokenSource().token
+
+                        override fun isCancellationRequested() = false
+                    })
+                    .addOnSuccessListener { location: Location? ->
+                        if (location != null) {
+                            val lat = location.latitude.toFloat()
+                            val lon = location.longitude.toFloat()
+                            sharedViewModel.refreshWeatherByLocation(lat, lon)
+                        }
+                    }
+            } else {
+                // check whether app already has the permissions,
+                // and whether app needs to show a permission rationale dialog
+                locationPermissionRequest?.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION))
             }
         }
 
-        if (ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED && isLocationCondition()
-        ) {
-            // Permission is granted. Get current location
-            fusedLocationClient.getCurrentLocation(
-                Priority.PRIORITY_HIGH_ACCURACY,
-                object : CancellationToken() {
-                    override fun onCanceledRequested(listener: OnTokenCanceledListener) =
-                        CancellationTokenSource().token
 
-                    override fun isCancellationRequested() = false
-                })
-                .addOnSuccessListener { location: Location? ->
-                    if (location != null) {
-                        val lat = location.latitude.toFloat()
-                        val lon = location.longitude.toFloat()
-                        sharedViewModel.refreshWeatherByLocation(lat, lon)
-                    }
-                }
-        } else {
-            // check whether app already has the permissions,
-            // and whether app needs to show a permission rationale dialog
-            locationPermissionRequest?.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION))
-        }
     }
 
     private fun bindForecast(forecast: WeatherModel) {
