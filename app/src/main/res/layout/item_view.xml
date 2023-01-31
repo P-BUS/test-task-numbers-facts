@@ -7,7 +7,6 @@
     android:layout_margin="@dimen/margin_small"
     android:elevation="@dimen/elevation">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_small"
+            android:textColor="@color/secondaryDarkColor"
             android:textSize="@dimen/small_text"
             tools:text="26.01.2023" />
 
@@ -33,9 +33,10 @@
             android:id="@+id/tv_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/temperature"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_small"
+            android:text="@string/temperature"
+            android:textColor="@color/secondaryDarkColor"
             android:textSize="@dimen/medium_text"
             tools:text="+10 *C" />
 

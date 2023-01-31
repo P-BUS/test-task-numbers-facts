@@ -121,12 +121,13 @@ class WeatherFragment : Fragment() {
         ) {
             // Permission is granted. Get current location
             fusedLocationClient.getCurrentLocation(
-                    Priority.PRIORITY_HIGH_ACCURACY,
-                    object : CancellationToken() {
-                        override fun onCanceledRequested(listener: OnTokenCanceledListener) =
-                            CancellationTokenSource().token
-                        override fun isCancellationRequested() = false
-                    })
+                Priority.PRIORITY_HIGH_ACCURACY,
+                object : CancellationToken() {
+                    override fun onCanceledRequested(listener: OnTokenCanceledListener) =
+                        CancellationTokenSource().token
+
+                    override fun isCancellationRequested() = false
+                })
                 .addOnSuccessListener { location: Location? ->
                     if (location != null) {
                         val lat = location.latitude.toFloat()
