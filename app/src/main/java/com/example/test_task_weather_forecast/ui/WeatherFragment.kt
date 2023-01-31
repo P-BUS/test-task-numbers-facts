@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -114,42 +113,41 @@ class WeatherFragment : Fragment() {
                 }
             }
         }
-        // check whether app already has the permissions,
-        // and whether app needs to show a permission rationale dialog
-        locationPermissionRequest?.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION))
 
-
-        if (ActivityCompat.checkSelfPermission(requireActivity(),
+        if (ActivityCompat.checkSelfPermission(
+                requireActivity(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED && isLocationCondition()
         ) {
             // Permission is granted. Get current location
-            fusedLocationClient.lastLocation
-               /* .getCurrentLocation(
-                Priority.PRIORITY_HIGH_ACCURACY,
-                object : CancellationToken() {
-                    override fun onCanceledRequested(listener: OnTokenCanceledListener) = CancellationTokenSource().token
-                    override fun isCancellationRequested() = false
-                })*/
-                .addOnSuccessListener { location : Location? ->
+            fusedLocationClient
+                //lastLocation
+                .getCurrentLocation(
+                    Priority.PRIORITY_HIGH_ACCURACY,
+                    object : CancellationToken() {
+                        override fun onCanceledRequested(listener: OnTokenCanceledListener) =
+                            CancellationTokenSource().token
+
+                        override fun isCancellationRequested() = false
+                    })
+                .addOnSuccessListener { location: Location? ->
                     if (location != null) {
-                    val lat = location.latitude.toFloat()
-                    val lon = location.longitude.toFloat()
-                    sharedViewModel.refreshWeatherByLocation(lat, lon)
+                        val lat = location.latitude.toFloat()
+                        val lon = location.longitude.toFloat()
+                        sharedViewModel.refreshWeatherByLocation(lat, lon)
                     }
                 }
         } else {
-            Snackbar.make(
-                binding.root,
-                getString(R.string.snackbar_no_permission),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            // check whether app already has the permissions,
+            // and whether app needs to show a permission rationale dialog
+            locationPermissionRequest?.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION))
         }
     }
 
     private fun bindForecast(forecast: WeatherModel) {
         binding.tvCity.text = forecast.cityName
-        binding.tvTemperature.visibility = View.VISIBLE // Needed not to see string parameters on empty screen
+        binding.tvTemperature.visibility =
+            View.VISIBLE // Needed not to see string parameters on empty screen
         binding.tvTemperature.text = getString(R.string.temperature, forecast.list.first().temp)
         binding.tvWeatherDescription.text = forecast.list.first().weather.last().description
         ImageLoader.loadImage(binding.ivWeatherIcon, forecast.list.first().weather.first().icon)
@@ -159,6 +157,7 @@ class WeatherFragment : Fragment() {
     private fun Fragment.hideKeyboard() {
         view?.let { activity?.hideKeyboard(it) }
     }
+
     private fun Context.hideKeyboard(view: View) {
         val inputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -167,7 +166,8 @@ class WeatherFragment : Fragment() {
 
     private fun isLocationCondition(): Boolean {
         // Initialise location manager
-        val locationManager: LocationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager =
+            activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         // Check condition
         return (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))

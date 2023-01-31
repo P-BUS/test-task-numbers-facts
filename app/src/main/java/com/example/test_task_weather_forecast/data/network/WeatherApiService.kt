@@ -14,10 +14,10 @@ interface WeatherApiService {
 
     @GET(ENDPOINT)
     suspend fun getWeatherForecast(
-        @Query("q") cityName: String = "Lviv",
-        @Query("lat") latitude: Float = 44.34F,
-        @Query("lon") longitude: Float = -2.15F,
-        @Query("cnt") numberOfTimestamps: Int = 5,
+        @Query("q") cityName: String = "",
+        @Query("lat") latitude: Float = 0.0F,
+        @Query("lon") longitude: Float = -0.0F,
+        @Query("cnt") numberOfTimestamps: Int = 30,
         @Query("appid") apiKey: String = API_KEY,
         @Query("units") measurementStandard: String = "metric"
     ): Response<WeatherResponse>
