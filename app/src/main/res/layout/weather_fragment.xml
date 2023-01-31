@@ -23,9 +23,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/il_input_city"
-        style="@style/MyTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+
         android:layout_marginHorizontal="@dimen/margin_large"
         android:layout_marginTop="@dimen/margin_xlarge"
         android:hint="@string/hint_city"

@@ -56,7 +56,7 @@ class WeatherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         recyclerView = binding.rvWeatherScroll
