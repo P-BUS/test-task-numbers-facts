@@ -1,12 +1,13 @@
 package com.example.test_task_weather_forecast.ui.di
 
-import com.example.test_task_weather_forecast.MainActivity
+import android.content.Context
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 
 @Module
 @InstallIn(FragmentComponent::class)
@@ -14,8 +15,8 @@ object LocationModule {
 
     @Provides
     fun provideFusedLocationProviderClient(
-        activity: MainActivity
+        @ActivityContext context: Context
     ): FusedLocationProviderClient {
-        return LocationServices.getFusedLocationProviderClient(activity)
+        return LocationServices.getFusedLocationProviderClient(context)
     }
 }
