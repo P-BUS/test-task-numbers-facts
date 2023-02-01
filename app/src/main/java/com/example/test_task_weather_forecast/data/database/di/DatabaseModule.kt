@@ -1,7 +1,9 @@
-package com.example.test_task_weather_forecast.data.database
+package com.example.test_task_weather_forecast.data.database.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.test_task_weather_forecast.data.database.AppDatabase
+import com.example.test_task_weather_forecast.data.database.WeatherDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.example.test_task_weather_forecast.di
+package com.example.test_task_weather_forecast
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

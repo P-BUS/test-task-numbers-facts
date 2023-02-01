@@ -1,5 +1,7 @@
-package com.example.test_task_weather_forecast.data.network
+package com.example.test_task_weather_forecast.data.network.di
 
+import com.example.test_task_weather_forecast.data.network.BASE_URL
+import com.example.test_task_weather_forecast.data.network.WeatherApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
