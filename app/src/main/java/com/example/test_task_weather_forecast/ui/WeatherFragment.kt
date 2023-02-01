@@ -28,7 +28,6 @@ import com.example.test_task_weather_forecast.ui.adapters.ForecastListAdapter
 import com.example.test_task_weather_forecast.ui.viewmodel.WeatherViewModel
 import com.example.test_task_weather_forecast.utils.ImageLoader
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
@@ -37,6 +36,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 const val TAG = "WeatherFragment"
 
@@ -45,7 +45,9 @@ class WeatherFragment : Fragment() {
     private val sharedViewModel: WeatherViewModel by activityViewModels()
     private lateinit var binding: WeatherFragmentBinding
     private lateinit var recyclerView: RecyclerView
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    @Inject
+    lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,8 +59,6 @@ class WeatherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         recyclerView = binding.rvWeatherScroll
         val adapter = ForecastListAdapter()
@@ -88,20 +88,20 @@ class WeatherFragment : Fragment() {
                 }
         }
 
-            // Determine which permissions the system has granted to your app
-            val locationPermissionRequest = activity?.registerForActivityResult(
-                ActivityResultContracts.RequestMultiplePermissions()
-            ) { permissions ->
-                when {
-                    permissions.getOrDefault(
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        false
-                    ) -> {
-                        // Location permission is granted.
-                        refreshMyLocation()
-                    }
+        // Determine which permissions the system has granted to your app
+        val locationPermissionRequest = activity?.registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions.getOrDefault(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    false
+                ) -> {
+                    // Location permission is granted.
+                    refreshMyLocation()
                 }
             }
+        }
 
         binding.button.setOnClickListener {
             if (ActivityCompat.checkSelfPermission(
@@ -160,6 +160,7 @@ class WeatherFragment : Fragment() {
             object : CancellationToken() {
                 override fun onCanceledRequested(listener: OnTokenCanceledListener) =
                     CancellationTokenSource().token
+
                 override fun isCancellationRequested() = false
             })
             .addOnSuccessListener { location: Location? ->
