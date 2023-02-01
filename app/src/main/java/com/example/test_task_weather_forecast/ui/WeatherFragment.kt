@@ -60,9 +60,6 @@ class WeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Should be initialised by Hilt
-        //fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
         recyclerView = binding.rvWeatherScroll
         val adapter = ForecastListAdapter()
         recyclerView.adapter = adapter
