@@ -3,11 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/weatherFragment">
+    app:startDestination="@id/factsListFragment">
 
     <fragment
-        android:id="@+id/weatherFragment"
-        android:name="com.example.test_task_weather_forecast.ui.WeatherFragment"
-        android:label="Weather forecast"
-        tools:layout="@layout/weather_fragment" />
+        android:id="@+id/factsListFragment"
+        android:name="com.example.test_task_numbers_facts.ui.FactsListFragment"
+        android:label="FactsListFragment" >
+        <action
+            android:id="@+id/action_factsListFragment_to_factDetailsFragment"
+            app:destination="@id/factDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/factDetailsFragment"
+        android:name="com.example.test_task_numbers_facts.ui.FactDetailsFragment"
+        android:label="fact_details_fragment"
+        tools:layout="@layout/fact_details_fragment" >
+        <action
+            android:id="@+id/action_factDetailsFragment_to_factsListFragment"
+            app:destination="@id/factsListFragment" />
+    </fragment>
 </navigation>

@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">test-task-weather-forecast</string>
+    <string name="app_name">test-task-numbers-facts</string>
+
+
     <string name="city">Lviv</string>
     <string name="find_location">Find my location</string>
     <string name="hint_city">Type your city</string>
@@ -8,4 +10,6 @@
     <string name="snackbar_permission">Location permission was granted</string>
     <string name="snackbar_no_permission">Location permission is NOT granted</string>
     <string name="empty_location">Cannot get location </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
