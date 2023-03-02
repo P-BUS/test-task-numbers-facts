@@ -19,19 +19,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.test_task_numbers_facts.R
 import com.example.test_task_numbers_facts.data.model.NumberFactModel
 import com.example.test_task_numbers_facts.databinding.FactsListFragmentBinding
-import com.example.test_task_numbers_facts.ui.adapters.ForecastListAdapter
+import com.example.test_task_numbers_facts.ui.adapters.FactsListAdapter
 import com.example.test_task_numbers_facts.ui.viewmodel.FactsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class FactsListFragment : Fragment() {
     private val sharedViewModel: FactsViewModel by activityViewModels()
     private lateinit var binding: FactsListFragmentBinding
     private lateinit var recyclerView: RecyclerView
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,55 +43,70 @@ class FactsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = binding.rvWeatherScroll
+        recyclerView = binding.rvFactScroll
         val recyclerLayoutManager = LinearLayoutManager(requireContext())
         recyclerLayoutManager.apply {
             recyclerView.layoutManager = this
-            // reverse the direction of adding the new item
+            // Reverse the direction of adding the new item
             this.reverseLayout = true
             this.stackFromEnd = true
         }
-
-        val adapter = ForecastListAdapter { currentFact ->
+        // On item click
+        val adapter = FactsListAdapter { currentFact ->
             sharedViewModel.updateCurrentFact(currentFact)
             findNavController().navigate(R.id.action_factsListFragment_to_factDetailsFragment)
         }
-
         recyclerView.adapter = adapter
 
-        // Submit city name in editText field
-        binding.etEditCity.setOnEditorActionListener { _, actionId, _ ->
+        // Submit number in editText field
+        binding.etEditNumber.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val editText = binding.etEditCity.text.toString().trim()
-                sharedViewModel.retrieveFact(editText)
-                // Hides the keyboard
-                parentFragment?.hideKeyboard()
+                val editText = binding.etEditNumber.text.toString().trim()
+                // Text validation
+                if (editText.isNotBlank()) {
+                    sharedViewModel.retrieveFact(editText)
+                    // Hides the keyboard
+                    parentFragment?.hideKeyboard()
+                    setErrorTextField(false)
+                } else {
+                    setErrorTextField(true)
+                }
                 true
             } else {
                 false
             }
         }
 
-        // Observe facts flow information
+        // Observe facts flow
         lifecycleScope.launch {
             sharedViewModel.numberFacts
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .distinctUntilChanged()
                 .collect { list ->
                     adapter.submitList(list)
-                    list.map { fact -> bindForecast(fact) }
+                    list.map { fact -> bindFact(fact) }
                     recyclerView.smoothScrollToPosition(adapter.itemCount)
                 }
         }
 
-        binding.button.setOnClickListener {
+        binding.buttonRandom.setOnClickListener {
             sharedViewModel.retrieveRandomFact()
+        }
+        binding.button.setOnClickListener {
+            val editText = binding.etEditNumber.text.toString().trim()
+            // Text validation
+            if (editText.isNotBlank()) {
+                sharedViewModel.retrieveFact(editText)
+                setErrorTextField(false)
+            } else {
+                setErrorTextField(true)
+            }
         }
     }
 
-    private fun bindForecast(forecast: NumberFactModel) {
-        binding.tvCity.text = forecast.number
-        binding.tvTemperature.text = forecast.numberFact
+    private fun bindFact(fact: NumberFactModel) {
+        binding.tvCity.text = fact.number
+        binding.tvTemperature.text = fact.numberFact
     }
 
     // Hides the keyboard
@@ -106,5 +120,12 @@ class FactsListFragment : Fragment() {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-
+    private fun setErrorTextField(error: Boolean) {
+        if (error) {
+            binding.ilInputNumber.isErrorEnabled = true
+            binding.ilInputNumber.error = getString(R.string.insert_number)
+        } else {
+            binding.ilInputNumber.isErrorEnabled = false
+        }
+    }
 }

@@ -13,13 +13,14 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideWeatherAoiService(
+    fun provideNumberApiService(
         retrofit: Retrofit
     ): NumberApiService {
         return retrofit.create(NumberApiService::class.java)

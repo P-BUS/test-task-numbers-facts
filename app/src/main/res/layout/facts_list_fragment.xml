@@ -4,32 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.WeatherFragment">
+    tools:context=".ui.FactsListFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/il_input_city"
+        android:id="@+id/il_input_number"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="56dp"
 
         android:layout_marginHorizontal="@dimen/margin_large"
         android:layout_marginTop="@dimen/margin_large"
-        android:hint="@string/hint_city"
+        android:hint="@string/hint_number"
         app:endIconMode="clear_text"
-        app:errorContentDescription=""
+        app:errorEnabled="true"
+        app:errorContentDescription="Please insert a number"
         app:errorIconDrawable="@drawable/ic_error_outline_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:startIconDrawable="@drawable/ic_search_24"
-        app:startIconTint="@color/secondaryDarkColor">
+        app:startIconTint="@color/md_theme_light_primary">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_edit_city"
+            android:id="@+id/et_edit_number"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:imeOptions="actionSearch"
-            android:inputType="text"
+            android:inputType="number"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,51 +38,56 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/find_location"
-        app:icon="@drawable/ic_my_location"
-        app:iconTint="@color/white"
-        android:textColor="@color/white"
+        android:text="@string/get_fact"
+        android:textColor="@color/md_theme_light_onPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_random" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_random"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_fact_random"
+        android:textColor="@color/md_theme_light_onPrimary"
         android:layout_marginTop="@dimen/margin_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/il_input_city" />
+        app:layout_constraintTop_toBottomOf="@+id/il_input_number" />
 
     <TextView
-        android:id="@+id/tv_city"
+        android:id="@+id/tv_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textAllCaps="true"
         android:layout_marginTop="@dimen/margin_medium"
-        android:textColor="@color/secondaryDarkColor"
+        android:textColor="@color/md_theme_light_onPrimaryContainer"
+        android:textSize="@dimen/large_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"/>
+
+    <TextView
+        android:id="@+id/tv_fact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:textColor="@color/md_theme_light_onPrimaryContainer"
         android:textSize="@dimen/medium_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        tools:text="@string/city" />
-
-    <TextView
-        android:id="@+id/tv_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textAllCaps="true"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:textColor="@color/secondaryDarkColor"
-        android:textSize="@dimen/small_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_city"
-        tools:text="@string/city" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_number"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_weather_scroll"
+        android:id="@+id/rv_fact_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/margin_xlarge"
         android:padding="@dimen/margin_thin"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/tv_temperature"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fact"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

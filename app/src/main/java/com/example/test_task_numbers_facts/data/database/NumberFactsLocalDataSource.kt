@@ -12,7 +12,4 @@ class NumberFactsLocalDataSource @Inject constructor(
 
     suspend fun insertAll(fact: NumberFactEntity) =
         database.factsDao().insertAll(fact)
-
-    suspend fun deleteAll() =
-        database.factsDao().deleteAll()
 }

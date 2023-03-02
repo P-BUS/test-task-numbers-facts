@@ -13,25 +13,22 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_date"
+            android:id="@+id/tv_number_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_small"
-            android:textColor="@color/secondaryDarkColor"
-            android:textSize="@dimen/small_text"
-            tools:text="26.01.2023" />
+            android:lines="1"
+            android:layout_margin="@dimen/margin_thin"
+            android:textColor="@color/md_theme_light_onPrimaryContainer"
+            android:textSize="@dimen/small_text"/>
 
         <TextView
-            android:id="@+id/tv_temperature"
+            android:id="@+id/tv_fact_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:lines="1"
-            android:layout_margin="@dimen/margin_small"
-            android:textColor="@color/secondaryDarkColor"
-            android:textSize="@dimen/medium_text"
-            tools:text="+10 *C" />
+            android:layout_margin="@dimen/margin_thin"
+            android:textColor="@color/md_theme_light_onPrimaryContainer"
+            android:textSize="@dimen/small_text"/>
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

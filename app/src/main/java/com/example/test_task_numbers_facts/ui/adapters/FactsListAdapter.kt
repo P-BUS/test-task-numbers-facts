@@ -9,10 +9,10 @@ import com.example.test_task_numbers_facts.data.model.NumberFactModel
 import com.example.test_task_numbers_facts.databinding.ItemViewBinding
 
 
-class ForecastListAdapter(
+class FactsListAdapter(
     private val onItemClicked: (NumberFactModel) -> Unit
 ) :
-    ListAdapter<NumberFactModel, ForecastListAdapter.ListViewHolder>(DiffCallback) {
+    ListAdapter<NumberFactModel, FactsListAdapter.ListViewHolder>(DiffCallback) {
 
     class ListViewHolder(private var binding: ItemViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -36,14 +36,12 @@ class ForecastListAdapter(
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(getItem(position))
-
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<NumberFactModel>() {
         override fun areItemsTheSame(oldItem: NumberFactModel, newItem: NumberFactModel): Boolean {
             return oldItem.number == newItem.number
         }
-
         override fun areContentsTheSame(oldItem: NumberFactModel, newItem: NumberFactModel): Boolean {
             return oldItem == newItem
         }

@@ -1,15 +1,10 @@
 <resources>
-    <string name="app_name">test-task-numbers-facts</string>
+    <string name="app_name">Numbers facts</string>
 
+    <string name="get_fact">Get fact</string>
+    <string name="get_fact_random">Get fact about random number</string>
+    <string name="hint_number">Type a number</string>
+    <string name="number_zero">0</string>
+    <string name="insert_number">Please insert a number </string>
 
-    <string name="city">Lviv</string>
-    <string name="find_location">Find my location</string>
-    <string name="hint_city">Type your city</string>
-    <string name="temperature">%1$d \u2103</string>
-    <string name="text_forecast">Forecast for 5 days</string>
-    <string name="snackbar_permission">Location permission was granted</string>
-    <string name="snackbar_no_permission">Location permission is NOT granted</string>
-    <string name="empty_location">Cannot get location </string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

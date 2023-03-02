@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
 
-const val TAG = "WeatherViewModel"
+const val TAG = "FactsViewModel"
 
 @HiltViewModel
 class FactsViewModel @Inject constructor(

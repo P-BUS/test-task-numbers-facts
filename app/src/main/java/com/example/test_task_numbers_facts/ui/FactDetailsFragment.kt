@@ -33,8 +33,6 @@ class FactDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         // Observe facts flow information
         lifecycleScope.launch {
             sharedViewModel.currentFact
@@ -44,7 +42,6 @@ class FactDetailsFragment : Fragment() {
                     bindFact(fact)
                 }
         }
-
     }
 
     private fun bindFact(fact: NumberFactModel) {
