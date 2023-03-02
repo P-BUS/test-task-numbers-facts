@@ -1,34 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_small"
+    android:layout_margin="@dimen/margin_thin"
     android:elevation="@dimen/elevation">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_fact_item"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_number_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:lines="1"
-            android:layout_margin="@dimen/margin_thin"
-            android:textColor="@color/md_theme_light_onPrimaryContainer"
-            android:textSize="@dimen/small_text"/>
-
-        <TextView
-            android:id="@+id/tv_fact_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:lines="1"
-            android:layout_margin="@dimen/margin_thin"
-            android:textColor="@color/md_theme_light_onPrimaryContainer"
-            android:textSize="@dimen/small_text"/>
-    </LinearLayout>
+        android:padding="@dimen/margin_small"
+        android:lines="1"
+        android:textColor="@color/md_theme_light_onPrimaryContainer"
+        android:textSize="@dimen/small_text"/>
 
 </com.google.android.material.card.MaterialCardView>

@@ -105,8 +105,8 @@ class FactsListFragment : Fragment() {
     }
 
     private fun bindFact(fact: NumberFactModel) {
-        binding.tvCity.text = fact.number
-        binding.tvTemperature.text = fact.numberFact
+        binding.tvNumber.text = fact.number
+        binding.tvFact.text = fact.numberFact
     }
 
     // Hides the keyboard

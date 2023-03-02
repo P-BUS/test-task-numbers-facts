@@ -17,9 +17,7 @@ class FactsListAdapter(
     class ListViewHolder(private var binding: ItemViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(fact: NumberFactModel) {
-            binding.tvDate.text = fact.number
-            binding.tvTemperature.text = fact.numberFact
-
+            binding.tvFactItem.text = fact.numberFact
         }
     }
 
