@@ -5,11 +5,11 @@ import javax.inject.Inject
 
 
 class NumberFactsLocalDataSource @Inject constructor(
-    private val database: AppDatabase
+    private val database: FactsDao
 ) {
     fun getAllFacts(): Flow<List<NumberFactEntity>> =
-        database.factsDao().getAllFacts()
+        database.getAllFacts()
 
     suspend fun insertAll(fact: NumberFactEntity) =
-        database.factsDao().insertAll(fact)
+        database.insertAll(fact)
 }

@@ -5,6 +5,7 @@ import com.example.test_task_numbers_facts.data.database.NumberFactsLocalDataSou
 import com.example.test_task_numbers_facts.data.model.NumberFactModel
 import com.example.test_task_numbers_facts.data.network.ApiResult
 import com.example.test_task_numbers_facts.data.network.NumberFactsRemoteDataSource
+import com.example.test_task_numbers_facts.utils.CoroutineDispatchers
 import com.example.test_task_numbers_facts.utils.Mappers.asDatabaseModel
 import com.example.test_task_numbers_facts.utils.Mappers.asDomainModel
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,8 @@ const val TAG = "NumberRepository"
 
 class NumberFactsRepository @Inject constructor(
     private val network: NumberFactsRemoteDataSource,
-    private val database: NumberFactsLocalDataSource
+    private val database: NumberFactsLocalDataSource,
+    private val dispatchers: CoroutineDispatchers
 ) {
 
     val factsStream: Flow<List<NumberFactModel>> =
@@ -29,7 +31,7 @@ class NumberFactsRepository @Inject constructor(
             }
 
     suspend fun retrieveFact(number: String) {
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             when (val response = network.getNumberFact(number)) {
                 is ApiResult.Success -> {
                     val numberFact = response.data
@@ -42,7 +44,7 @@ class NumberFactsRepository @Inject constructor(
     }
 
     suspend fun retrieveRandomFact() {
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             when (val response = network.getRandomNumberFact()) {
                 is ApiResult.Success -> {
                     val numberFact = response.data
